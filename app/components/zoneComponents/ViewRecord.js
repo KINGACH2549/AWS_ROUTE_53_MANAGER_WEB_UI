@@ -15,6 +15,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Label } from "@/components/ui/label";
+import RecordValuesToolTip from "./RecordValuesToolTip";
 
 const data = [
   { goal: 400 },
@@ -39,17 +40,12 @@ export default function ViewRecord({ record, zoneName }) {
     setGoal(Math.max(200, Math.min(400, goal + adjustment)));
   }
 
-  const values = record.ResourceRecords.map((resource) => {
+  const values = record.ResourceRecords.map((resource, index) => {
     return (
       <>
-        <p
-          style={{
-            fontSize: "0.5rem",
-          }}
-          className="px-4 w-24 bg-gray-800 truncate text-white rounded-full hover:cursor-pointer hover:w-auto"
-        >
-          {resource.Value}
-        </p>
+        
+        <RecordValuesToolTip  value={resource.Value}/>
+      
       </>
     );
   });
@@ -78,9 +74,9 @@ export default function ViewRecord({ record, zoneName }) {
                 <Label>Type</Label>
                 <p>{record.Type}</p>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-2 flex flex-col gap-2">
                 <Label>Values</Label>
-                <div className="flex gap-2 justify-center">
+                <div className="flex gap-6 justify-center">
                   {values.length > 0 ? values : "No Values Present"}
                 </div>
               </div>
