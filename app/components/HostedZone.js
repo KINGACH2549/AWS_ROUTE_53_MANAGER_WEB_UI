@@ -15,11 +15,19 @@ export default function HostedZone(props) {
     setDialogOpen(showDialog);
   };
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+    <Dialog
+      open={dialogOpen}
+      onOpenChange={(open) => {
+        if (localStorage.getItem("API_KEYS")) setDialogOpen(open);
+      }}
+    >
       <DialogTrigger asChild>
         <Button
-          onClick={() => handleDialog(true)}
-          className="bg-black text-white hover:bg-gray-900 hover:text-white"
+          className={`${
+            localStorage.getItem("API_KEYS")
+              ? "bg-black text-white hover:bg-gray-900 hover:text-white"
+              : "bg-gray-800  text-white hover:bg-gray-600 hover:text-white cursor-not-allowed"
+          }`}
           variant="outline"
         >
           Create Zone

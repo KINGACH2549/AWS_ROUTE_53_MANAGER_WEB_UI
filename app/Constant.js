@@ -1,2 +1,5 @@
-export const API_HOST =
-  "https://aws-route53-management-g6m028nzk-kingach2549s-projects.vercel.app/";
+export const API_HOST = "https://aws-route-53-backend.vercel.app/";
+export const KEY_TYPE_SECRET = "secretKey";
+export const KEY_TYPE_ACCESS = "accessKey";
+export const REMOVE_API_KEYS = "removeApiKeys";
+export const ADD_API_KEYS = "addApiKeys";

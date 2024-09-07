@@ -1,4 +1,6 @@
-import { deleteHostedZoneById } from "../../api/DeleteHostedZone";
+import { deleteHostedZoneById } from "@/app/api/DeleteHostedZone";
+import { useRouter } from "next/navigation";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,37 +13,33 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
 
-export function DeleteZoneModal(props) {
-  const { zoneId, setChanges, setRowSelection, showDeleteButton } = props;
-
-  const { toast } = useToast();
-
+export default function DeleteZone({ zoneID }) {
+  const router = useRouter();
   const deleteZone = (zoneId) => {
+    console.log(zoneId);
     // call Delete API
-    console.log(zoneId, "xx");
     deleteHostedZoneById(zoneId).then((res) => {
       console.log(res);
-      toast({
-        title: "Hosted Zone Deletion Request",
-        description:
-          "Zone " + zoneId + " Status - " + res.data.ChangeInfo.Status,
-      });
-      setChanges([res]);
+      //   toast({
+      //     title: "Hosted Zone Deletion Request",
+      //     description:
+      //       "Zone " + zoneId + " Status - " + res.data.ChangeInfo.Status,
+      //   });
+      router.replace("/");
     });
-    setRowSelection({});
-    showDeleteButton(false);
   };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
+        {/* <Button
           className="bg-red-800 text-white hover:bg-red-900 hover:text-white"
           variant="outline"
         >
           Delete Zone
-        </Button>
+        </Button> */}
+        <span onClick={(e) => e.stopPropagation()}>Delete Zone</span>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -55,8 +53,7 @@ export function DeleteZoneModal(props) {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              console.log(zoneId, "ww");
-              deleteZone(zoneId);
+              deleteZone(zoneID);
             }}
           >
             Continue
