@@ -11,11 +11,11 @@ import ViewRecord from "./ViewRecord";
 
 export default function RecordTable(props) {
   //   const recordCards = data.map((card) => <>card</>);
-  const { records, zoneName } = props;
+  const { records, zoneName, zoneID } = props;
   const recordCards = records.map((record) => {
     return (
       <>
-        <Card>
+        <Card className="shadow-md shadow-green-100 hover:shadow-green-200">
           <CardHeader>
             <CardDescription>{zoneName} Zone Record</CardDescription>
           </CardHeader>
@@ -26,7 +26,7 @@ export default function RecordTable(props) {
           <CardFooter className="flex justify-center">
             {/* <PanelBottomOpen className="hover:cursor" /> */}
             {/* <ChevronsUp className="hover:cursor-pointer" /> */}
-            <ViewRecord record={record} zoneName={zoneName} />
+            <ViewRecord record={record} zoneName={zoneName} zoneID={zoneID} />
           </CardFooter>
         </Card>
       </>
@@ -34,8 +34,10 @@ export default function RecordTable(props) {
   });
   return (
     <>
-      <div className="grid grid-cols-3 gap-10">
-        {recordCards.length > 0 ? recordCards : "No Records Found"}
+      <div className="border-2 p-8 rounded-md">
+        <div className="grid grid-cols-3 gap-10">
+          {recordCards.length > 0 ? recordCards : "No Records Found"}
+        </div>
       </div>
     </>
   );

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/drawer";
 import { Label } from "@/components/ui/label";
 import RecordValuesToolTip from "./RecordValuesToolTip";
+import DeleteRecord from "./DeleteRecord";
 
 const data = [
   { goal: 400 },
@@ -33,36 +34,53 @@ const data = [
   { goal: 349 },
 ];
 
-export default function ViewRecord({ record, zoneName }) {
-  const [goal, setGoal] = useState(350);
-
-  function onClick(adjustment) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)));
-  }
+export default function ViewRecord({ record, zoneName, zoneID }) {
+  const [isDrawerOpen, showDrawer] = useState(false);
 
   const values = record.ResourceRecords.map((resource, index) => {
     return (
       <>
-        
-        <RecordValuesToolTip  value={resource.Value}/>
-      
+        <RecordValuesToolTip value={resource.Value} />
       </>
     );
   });
 
+  const toggleDrawer = (toggleValue) => {
+    showDrawer(toggleValue);
+  };
   return (
-    <Drawer>
+    <Drawer
+      open={isDrawerOpen}
+      onOpenChange={(data) => {
+        toggleDrawer(data);
+      }}
+    >
       <DrawerTrigger asChild>
         {/* <Button variant="outline">Open Drawer</Button> */}
         <ChevronsUp className="hover:cursor-pointer" />
       </DrawerTrigger>
       <DrawerContent>
         <div className=" w-full p-4">
-          <DrawerHeader>
+          <DrawerHeader className="relative">
+            {/* <div className="flex gap-2">
+              <div> */}
             <DrawerTitle className="text-center">{record.Name}</DrawerTitle>
             <DrawerDescription className="text-center">
               This record is under zone {zoneName}
             </DrawerDescription>
+            {record.Type !== "NS" && record.Type !== "SOA" && (
+              <div className=" absolute right-0 top-4 flex gap-8 justify-center">
+                <Button>Update</Button>
+                {/* <Button className="bg-red-800 text-white hover:bg-red-900 hover:text-white">
+                Delete
+              </Button> */}
+                <DeleteRecord
+                  record={record}
+                  zoneID={zoneID}
+                  toggleDrawer={toggleDrawer}
+                />
+              </div>
+            )}
           </DrawerHeader>
           <div className="p-4 pb-0">
             <div className="grid grid-cols-2 text-center text-base col-gap-2 gap-y-4">

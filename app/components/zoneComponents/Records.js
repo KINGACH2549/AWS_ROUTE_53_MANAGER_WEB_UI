@@ -45,7 +45,7 @@ export default function Record(props) {
     ).then((res) => {
       // notification event triggers
     });
-    // handleRecordDialogVisibilty(false);
+    handleRecordDialogVisibilty(false);
   };
 
   return (

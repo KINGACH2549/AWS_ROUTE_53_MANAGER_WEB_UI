@@ -36,6 +36,7 @@ export default function App({ zoneID }) {
           <DisplayZoneRecords
             zoneID={zoneID}
             zoneName={zonedetails.HostedZone.Name.replace("com.", "com")}
+            metaData={metaData}
           />
         </>
       ) : (
