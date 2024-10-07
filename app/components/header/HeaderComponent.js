@@ -43,8 +43,8 @@ export function CommandDemo() {
     <Command className="rounded-lg border shadow-md sm:max-w-[500px]">
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
+        <CommandEmpty>Coming Soon</CommandEmpty>
+        {/* <CommandGroup heading="Suggestions">
           <CommandItem>
             <Calendar className="mr-2 h-4 w-4" />
             <span>Calendar</span>
@@ -75,7 +75,7 @@ export function CommandDemo() {
             <span>Settings</span>
             <CommandShortcut>⌘S</CommandShortcut>
           </CommandItem>
-        </CommandGroup>
+        </CommandGroup> */}
       </CommandList>
     </Command>
   );

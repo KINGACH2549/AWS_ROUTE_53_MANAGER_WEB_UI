@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/card";
 import { notificationHandler } from "./NotificationHandler";
 import { Button } from "@/components/ui/button";
+import { useNotificationQueue } from "@/app/custom-hooks";
 
 const tags = Array.from({ length: 5 }).map(() => {
   return (
@@ -94,40 +95,8 @@ export function ScrollAreaDemo(notificationData, handleNotifications) {
 
 export default function NotifcationManager(props) {
   const { toast } = useToast();
-  // const setTimeOutWithPromise = (callBack, delay) => {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(async () => {
-  //       const data = await callBack();
-  //       resolve(data);
-  //     }, delay);
-  //   });
-  // };
-
-  // const notificationHandler = async (notificationsQueue) => {
-  //   if (notificationsQueue.current.length > 0) {
-  //     let element = notificationsQueue.current.shift();
-  //     // const HostedZoneName = element.data.HostedZoneName;
-  //     // console.log(HostedZoneName);
-  //     while (
-  //       (element?.statusCode === 200 || element?.statusCode === 201) &&
-  //       element?.data?.ChangeInfo?.Status.includes("PENDING")
-  //     ) {
-  //       console.log("Waiting for 20 seconds!");
-  //       const response = await setTimeOutWithPromise(async () => {
-  //         const data = await getChanges({
-  //           Id: element.data.ChangeInfo.Id.replace("/change/", ""),
-  //         });
-  //         return data;
-  //       }, 20000);
-  //       console.log(response);
-  //       element = response;
-  //     }
-
-  //     console.log(element, "activity completed");
-  //   }
-  // };
-
-  const { notificationsQueue } = props;
+  const notificationsQueue = useNotificationQueue();
+  // const { notificationsQueue } = props;
   const [showScrollAreaNotification, setScrollAreaNotification] =
     React.useState(false);
 

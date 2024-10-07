@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import CommonHeader from "./CommonHeader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,11 +11,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // const notificationQueue = useRef([]);
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        <Toaster />
+        <CommonHeader>{children}</CommonHeader>
       </body>
     </html>
   );
