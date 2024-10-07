@@ -11,13 +11,19 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-export default function DeleteRecord({ record, zoneID, toggleDrawer }) {
+export default function DeleteRecord({
+  record,
+  zoneID,
+  toggleDrawer,
+  setChanges,
+}) {
   const deleteRecord = () => {
     console.log(record, "eee");
     const changeResourceRequest = { ...record };
     if (changeResourceRequest.id) delete changeResourceRequest.id;
     deleteDnsRecord(changeResourceRequest, zoneID).then((res) => {
       console.log(res);
+      setChanges([res]);
       toggleDrawer(false);
     });
   };

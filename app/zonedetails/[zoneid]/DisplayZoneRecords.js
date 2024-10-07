@@ -4,7 +4,13 @@ import { listResourceRecordSets } from "@/app/api/ListDnsRecord";
 import RecordSearch from "@/app/components/zoneComponents/RecordSearch";
 import MiniSearch from "minisearch";
 
-export default function DisplayZoneRecords({ zoneID, zoneName, metaData }) {
+export default function DisplayZoneRecords({
+  zoneID,
+  zoneName,
+  metaData,
+  changes,
+  setChanges,
+}) {
   const [filters, setFilters] = useState({
     name: "",
     type: "",
@@ -25,10 +31,12 @@ export default function DisplayZoneRecords({ zoneID, zoneName, metaData }) {
         fields: ["Name"], // fields to index for full-text search
         storeFields: Object.keys(res.data.ResourceRecordSets[0]), // fields to return with search results
       });
+
       miniSearch.current.addAll(records);
+      // searchRecords(filters);
       setRecords(records);
     });
-  }, []);
+  }, [changes]);
 
   const searchRecords = (data) => {
     const results =
@@ -61,7 +69,13 @@ export default function DisplayZoneRecords({ zoneID, zoneName, metaData }) {
           />
         </div>
         <div className="px-20 w-full">
-          <RecordTable records={records} zoneName={zoneName} zoneID={zoneID} />
+          <RecordTable
+            records={records}
+            zoneName={zoneName}
+            zoneID={zoneID}
+            setChanges={setChanges}
+            metaData={metaData}
+          />
         </div>
       </div>
     </>

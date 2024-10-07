@@ -11,7 +11,7 @@ import ViewRecord from "./ViewRecord";
 
 export default function RecordTable(props) {
   //   const recordCards = data.map((card) => <>card</>);
-  const { records, zoneName, zoneID } = props;
+  const { records, zoneName, zoneID, setChanges, metaData } = props;
   const recordCards = records.map((record) => {
     return (
       <>
@@ -26,7 +26,13 @@ export default function RecordTable(props) {
           <CardFooter className="flex justify-center">
             {/* <PanelBottomOpen className="hover:cursor" /> */}
             {/* <ChevronsUp className="hover:cursor-pointer" /> */}
-            <ViewRecord record={record} zoneName={zoneName} zoneID={zoneID} />
+            <ViewRecord
+              record={record}
+              zoneName={zoneName}
+              zoneID={zoneID}
+              setChanges={setChanges}
+              metaData={metaData}
+            />
           </CardFooter>
         </Card>
       </>

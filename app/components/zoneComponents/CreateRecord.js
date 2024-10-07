@@ -4,7 +4,12 @@ import Record from "./Records";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function CreateRecord({ metaData, zoneDetails }) {
+export default function CreateRecord({
+  metaData,
+  zoneDetails,
+  changes,
+  setChanges,
+}) {
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       Name: "",
@@ -36,6 +41,8 @@ export default function CreateRecord({ metaData, zoneDetails }) {
           metaData={metaData}
           zoneDetails={zoneDetails}
           formParams={{ control, handleSubmit }}
+          changes={changes}
+          setChanges={setChanges}
         />
       </Dialog>
     </>

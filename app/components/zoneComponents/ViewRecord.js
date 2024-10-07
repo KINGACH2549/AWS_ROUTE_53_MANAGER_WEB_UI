@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Minus, Plus } from "lucide-react";
-import { Bar, BarChart, ResponsiveContainer } from "recharts";
 import { ChevronsUp } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,26 +15,19 @@ import {
 import { Label } from "@/components/ui/label";
 import RecordValuesToolTip from "./RecordValuesToolTip";
 import DeleteRecord from "./DeleteRecord";
+import ReadRecord from "./ReadRecord";
+import UpdateRecord from "./UpdateRecord";
+import ManageRecord from "./ManageRecord";
 
-const data = [
-  { goal: 400 },
-  { goal: 300 },
-  { goal: 200 },
-  { goal: 300 },
-  { goal: 200 },
-  { goal: 278 },
-  { goal: 189 },
-  { goal: 239 },
-  { goal: 300 },
-  { goal: 200 },
-  { goal: 278 },
-  { goal: 189 },
-  { goal: 349 },
-];
-
-export default function ViewRecord({ record, zoneName, zoneID }) {
+export default function ViewRecord({
+  record,
+  zoneName,
+  zoneID,
+  setChanges,
+  metaData,
+}) {
   const [isDrawerOpen, showDrawer] = useState(false);
-
+  const [mode, setMode] = useState(false);
   const values = record.ResourceRecords.map((resource, index) => {
     return (
       <>
@@ -46,7 +37,11 @@ export default function ViewRecord({ record, zoneName, zoneID }) {
   });
 
   const toggleDrawer = (toggleValue) => {
+    if (!toggleValue) changeMode(false); // Better Handling
     showDrawer(toggleValue);
+  };
+  const changeMode = (mode) => {
+    setMode(mode);
   };
   return (
     <Drawer
@@ -56,7 +51,6 @@ export default function ViewRecord({ record, zoneName, zoneID }) {
       }}
     >
       <DrawerTrigger asChild>
-        {/* <Button variant="outline">Open Drawer</Button> */}
         <ChevronsUp className="hover:cursor-pointer" />
       </DrawerTrigger>
       <DrawerContent>
@@ -68,92 +62,37 @@ export default function ViewRecord({ record, zoneName, zoneID }) {
             <DrawerDescription className="text-center">
               This record is under zone {zoneName}
             </DrawerDescription>
-            {record.Type !== "NS" && record.Type !== "SOA" && (
+            {!mode && record.Type !== "NS" && record.Type !== "SOA" && (
               <div className=" absolute right-0 top-4 flex gap-8 justify-center">
-                <Button>Update</Button>
-                {/* <Button className="bg-red-800 text-white hover:bg-red-900 hover:text-white">
-                Delete
-              </Button> */}
+                <Button onClick={() => changeMode(true)}>Update</Button>
                 <DeleteRecord
                   record={record}
                   zoneID={zoneID}
                   toggleDrawer={toggleDrawer}
+                  setChanges={setChanges}
                 />
               </div>
             )}
           </DrawerHeader>
           <div className="p-4 pb-0">
-            <div className="grid grid-cols-2 text-center text-base col-gap-2 gap-y-4">
-              <div>
-                <Label>Name</Label>
-                <p>{record.Name}</p>
-              </div>
-              <div>
-                <Label>Type</Label>
-                <p>{record.Type}</p>
-              </div>
-              <div className="col-span-2 flex flex-col gap-2">
-                <Label>Values</Label>
-                <div className="flex gap-6 justify-center">
-                  {values.length > 0 ? values : "No Values Present"}
-                </div>
-              </div>
-              <div>
-                <Label>TTL</Label>
-                <p>{record.TTL}</p>
-              </div>
-              <div>
-                <Label>Routing Policy</Label>
-                <p>
-                  {record.Type === "NS" || record.Type === "SOA"
-                    ? "None"
-                    : "Simple Routing"}
-                </p>
-              </div>
-            </div>
-            {/* <div className="flex items-center justify-center space-x-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(-10)}
-                disabled={goal <= 200}
-              >
-                <Minus className="h-4 w-4" />
-                <span className="sr-only">Decrease</span>
-              </Button>
-              <div className="flex-1 text-center">
-                <div className="text-7xl font-bold tracking-tighter">
-                  {goal}
-                </div>
-                <div className="text-[0.70rem] uppercase text-muted-foreground">
-                  Calories/day
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(10)}
-                disabled={goal >= 400}
-              >
-                <Plus className="h-4 w-4" />
-                <span className="sr-only">Increase</span>
-              </Button>
-            </div>
-            <div className="mt-3 h-[120px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data}>
-                  <Bar
-                    dataKey="goal"
-                    style={{
-                      fill: "hsl(var(--foreground))",
-                      opacity: 0.9,
-                    }}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div> */}
+            {!mode ? (
+              <ReadRecord record={record} values={values} />
+            ) : (
+              // <UpdateRecord
+              //   record={record}
+              //   metaData={metaData}
+              //   changeMode={changeMode}
+              //   zoneID={zoneID}
+              //   setChanges={setChanges}
+              // />
+              <ManageRecord
+                record={record}
+                metaData={metaData}
+                changeMode={changeMode}
+                zoneID={zoneID}
+                setChanges={setChanges}
+              />
+            )}
           </div>
           {/* <DrawerFooter>
             <Button>Submit</Button>

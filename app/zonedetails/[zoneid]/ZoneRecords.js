@@ -1,7 +1,12 @@
 import CreateRecord from "@/app/components/zoneComponents/CreateRecord";
-import { Button } from "@/components/ui/button";
+import CreateRecordWithDrawer from "@/app/components/zoneComponents/CreateRecordWithDrawer";
 
-export default function ZoneRecords({ metaData, zoneDetails }) {
+export default function ZoneRecords({
+  metaData,
+  zoneDetails,
+  changes,
+  setChanges,
+}) {
   return (
     <>
       <div className="px-20 mb-16">
@@ -11,7 +16,18 @@ export default function ZoneRecords({ metaData, zoneDetails }) {
             {"(" + zoneDetails?.HostedZone?.ResourceRecordSetCount + ")"}
           </span>
         </header>
-        <CreateRecord metaData={metaData} zoneDetails={zoneDetails} />
+        {/* <CreateRecord
+          metaData={metaData}
+          zoneDetails={zoneDetails}
+          changes={changes}
+          setChanges={setChanges}
+        /> */}
+        <CreateRecordWithDrawer
+          metaData={metaData}
+          setChanges={setChanges}
+          zoneID={zoneDetails?.HostedZone?.Id.replace("/hostedzone/", "")}
+          zoneName={zoneDetails?.HostedZone?.Name.replace("com.", "com")}
+        />
       </div>
     </>
   );

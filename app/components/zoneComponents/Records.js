@@ -22,17 +22,14 @@ import {
 import { createDnsRecord } from "@/app/api/CreateDnsRecord";
 
 export default function Record(props) {
-  // const { control, handleSubmit, reset } = useForm({
-  //   defaultValues: {
-  //     Subdomain: "",
-  //     RecordType: "",
-  //     RecordValue: "",
-  //     TTL: "",
-  //     RoutingPolicy: "",
-  //   },
-  // });
-  const { metaData, zoneDetails, handleRecordDialogVisibilty, formParams } =
-    props;
+  const {
+    metaData,
+    zoneDetails,
+    handleRecordDialogVisibilty,
+    formParams,
+    changes,
+    setChanges,
+  } = props;
   const { control, handleSubmit } = formParams;
   const onSubmit = (data) => {
     console.log(data);
@@ -44,6 +41,7 @@ export default function Record(props) {
       zoneDetails?.HostedZone?.Id.replace("/hostedzone/", "")
     ).then((res) => {
       // notification event triggers
+      setChanges([res]);
     });
     handleRecordDialogVisibilty(false);
   };
