@@ -146,7 +146,7 @@ export default function NotifcationManager(props) {
           handleNotificationData(data);
         }
       });
-    }, 10000); // Every 10 seconds
+    }, 10000); // Every 10 second
     // Clean up the event listener on component unmount
     return () => {
       document.body.removeEventListener("click", handleBodyClick);
