@@ -19,24 +19,7 @@ import { notificationHandler } from "./NotificationHandler";
 import { Button } from "@/components/ui/button";
 import { useNotificationQueue } from "@/app/custom-hooks";
 
-const tags = Array.from({ length: 5 }).map(() => {
-  return (
-    <>
-      <Card>
-        <CardHeader>
-          <CardDescription>
-            Request Type Related to hosted Zone operation
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Status of Zone</p>
-        </CardContent>
-      </Card>
-    </>
-  );
-});
-
-export function ScrollAreaDemo(notificationData, handleNotifications) {
+export function ScrollAreaDemo({ notificationData, handleNotifications }) {
   console.log(notificationData, "manager");
   const notifications = notificationData.map((data) => {
     return (
@@ -54,10 +37,12 @@ export function ScrollAreaDemo(notificationData, handleNotifications) {
   });
   return (
     <div
-      className=" bg-white absolute top-[50px] right-[80px]"
-      // onClick={(e) => e.stopPropagation()}
+      // className=" bg-gray-100 absolute top-[50px] right-[80px]"
+      // className=" bg-gray-100"
+      className="absolute top-[35px] left-[1px] right-0 bg-white w-80 z-50 shadow-lg rounded-md"
+      onClick={(e) => e.stopPropagation()}
     >
-      <ScrollArea className="h-72 w-90 rounded-md border">
+      <ScrollArea className="h-72 w-full rounded-md border">
         <div className="p-4">
           {notifications.length > 0 ? (
             notifications.map(
@@ -73,13 +58,14 @@ export function ScrollAreaDemo(notificationData, handleNotifications) {
               )
             )
           ) : (
-            <div className="text-sm">You are all Good!!</div>
+            <div className="flex flex-col items-center">
+              <p className="text-md text-center">You are all Catched Up</p>
+            </div>
           )}
           {notifications.length > 0 && (
             <div className="flex items-center justify-center">
               <Button
                 onClick={(e) => {
-                  e.preventDefault();
                   handleNotifications([]);
                 }}
               >
@@ -127,12 +113,14 @@ export default function NotifcationManager(props) {
     // Update the state with the new array
     setNotificationData(newNotificationData);
   };
+
   React.useEffect(() => {
     // Add the event listener
     const handleBodyClick = () => {
       setScrollAreaNotification(false);
     };
-    document.body.addEventListener("click", handleBodyClick);
+    // document.body.addEventListener("click", handleBodyClick);
+    window.addEventListener("click", handleBodyClick);
 
     const intervalId = setInterval(() => {
       console.log(notificationsQueue, "inside notification");
@@ -149,21 +137,28 @@ export default function NotifcationManager(props) {
     }, 10000); // Every 10 second
     // Clean up the event listener on component unmount
     return () => {
-      document.body.removeEventListener("click", handleBodyClick);
+      window.removeEventListener("click", handleBodyClick);
       clearInterval(intervalId);
     };
   }, [notificationData]);
 
   return (
     <>
-      <IoNotifications
-        className="w-32 h-[1.8rem] cursor-pointer"
-        onClick={() => {
-          setScrollAreaNotification(true);
-        }}
-      />
-      {showScrollAreaNotification &&
-        ScrollAreaDemo(notificationData, handleNotifications)}
+      <div className="relative">
+        <IoNotifications
+          className="w-32 h-[1.8rem] cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent closing when clicking the icon
+            setScrollAreaNotification(true);
+          }}
+        />
+        {showScrollAreaNotification && (
+          <ScrollAreaDemo
+            notificationData={notificationData}
+            handleNotifications={handleNotifications}
+          />
+        )}
+      </div>
     </>
   );
 }
