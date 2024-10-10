@@ -27,11 +27,6 @@ export default function App() {
 
   return (
     <>
-      {/* <div className=" shadow flex items-center justify-center mb-40 py-4 gap-64">
-        <SiAmazonroute53 className="w-32 h-[2.2rem]" />
-        <SearchDomain />
-        <NotifcationManager notificationsQueue={notificationsQueue} />
-      </div> */}
       <AWSRoute53Conifg
         hostedZonelist={hostedZonelist}
         changes={changes}

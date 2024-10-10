@@ -7,11 +7,13 @@ import { ZoneHeader } from "./ZoneHeader";
 import ZoneRecords from "./ZoneRecords";
 import { getAllRecordTypes } from "@/app/api/MetaData";
 import DisplayZoneRecords from "./DisplayZoneRecords";
+import { useNotificationQueue } from "@/app/custom-hooks";
 
 export default function App({ zoneID }) {
   const [zonedetails, setZoneDetails] = useState({});
   const [metaData, setMetaData] = useState({});
   const [changes, setChanges] = useState([]);
+  const notificationsQueue = useNotificationQueue();
 
   useEffect(() => {
     getHostedZoneById(zoneID).then((data) => {
@@ -22,6 +24,8 @@ export default function App({ zoneID }) {
     getAllRecordTypes().then((data) => {
       setMetaData(data);
     });
+
+    if (changes.length > 0) notificationsQueue.current.push(changes[0]);
   }, [changes]);
   return (
     <>

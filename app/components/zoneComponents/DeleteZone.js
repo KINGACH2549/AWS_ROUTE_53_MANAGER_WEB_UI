@@ -13,22 +13,34 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-// import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function DeleteZone({ zoneID }) {
   const router = useRouter();
+  const { toast } = useToast();
   const deleteZone = (zoneId) => {
     console.log(zoneId);
     // call Delete API
-    deleteHostedZoneById(zoneId).then((res) => {
-      console.log(res);
-      //   toast({
-      //     title: "Hosted Zone Deletion Request",
-      //     description:
-      //       "Zone " + zoneId + " Status - " + res.data.ChangeInfo.Status,
-      //   });
-      router.replace("/");
-    });
+    deleteHostedZoneById(zoneId)
+      .then((res) => {
+        console.log(res);
+        //   toast({
+        //     title: "Hosted Zone Deletion Request",
+        //     description:
+        //       "Zone " + zoneId + " Status - " + res.data.ChangeInfo.Status,
+        //   });
+        router.replace("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: e.response?.data?.error,
+          // action: <ToastAction altText="Try again">Try again</ToastAction>,
+          duration: Infinity,
+        });
+      });
   };
   return (
     <AlertDialog>

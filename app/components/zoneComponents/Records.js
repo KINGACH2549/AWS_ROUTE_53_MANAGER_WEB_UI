@@ -20,6 +20,8 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { createDnsRecord } from "@/app/api/CreateDnsRecord";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export default function Record(props) {
   const {
@@ -31,6 +33,8 @@ export default function Record(props) {
     setChanges,
   } = props;
   const { control, handleSubmit } = formParams;
+
+  const toast = useToast();
   const onSubmit = (data) => {
     console.log(data);
     // call create record api
@@ -39,10 +43,21 @@ export default function Record(props) {
     createDnsRecord(
       data,
       zoneDetails?.HostedZone?.Id.replace("/hostedzone/", "")
-    ).then((res) => {
-      // notification event triggers
-      setChanges([res]);
-    });
+    )
+      .then((res) => {
+        // notification event triggers
+
+        setChanges([res]);
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      });
     handleRecordDialogVisibilty(false);
   };
 

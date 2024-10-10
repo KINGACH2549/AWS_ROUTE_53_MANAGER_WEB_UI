@@ -6,6 +6,7 @@ import SearchDomain from "./components/header/SearchDomain";
 import NotifcationManager from "./components/notifications/NotificationManager";
 import CommonQueue from "./CommonQueue";
 import { Toaster } from "@/components/ui/toaster";
+import Error from "./Error";
 
 export default function CommonHeader({ children }) {
   const notificationQueue = useRef([]);

@@ -13,6 +13,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { manageDnsRecords } from "@/app/api/CreateDnsRecord";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export default function ManageRecord(props) {
   const {
@@ -33,15 +35,29 @@ export default function ManageRecord(props) {
       RoutingPolicy: "Simple Routing",
     },
   });
+
+  const { toast } = useToast();
+
   const onSubmit = (data) => {
     console.log(data);
     if (zoneName && !data.Name.includes(zoneName))
       data.Name = data.Name + "." + zoneName;
-    manageDnsRecords(data, zoneID, "UPSERT").then((res) => {
-      if (changeMode) changeMode(false);
-      else toggleDrawer(false);
-      setChanges([res]);
-    });
+    manageDnsRecords(data, zoneID, "UPSERT")
+      .then((res) => {
+        if (changeMode) changeMode(false);
+        else toggleDrawer(false);
+        setChanges([res]);
+      })
+      .catch((e) => {
+        console.log(e);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: e.response?.data?.error,
+          // action: <ToastAction altText="Try again">Try again</ToastAction>,
+          duration: Infinity,
+        });
+      });
   };
 
   return (

@@ -58,7 +58,7 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
               )
             )
           ) : (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col justify-center">
               <p className="text-md text-center">You are all Catched Up</p>
             </div>
           )}
@@ -93,25 +93,38 @@ export default function NotifcationManager(props) {
     setNotificationData(data);
   };
   const handleNotificationData = (data) => {
-    // Let's say i have less than 10 things than then include it in array
-    // if array size ==10 then remove the oldest notification and push latest and save array
-    // Create a new array with the current notifications
+    // // Let's say i have less than 10 things than then include it in array
+    // // if array size ==10 then remove the oldest notification and push latest and save array
+    // // Create a new array with the current notifications
 
-    console.log(notificationData, "handle1");
-    let newNotificationData = [...notificationData];
+    // console.log(notificationData, "handle1");
+    // let newNotificationData = [...notificationData];
 
-    // If the array size is 10, remove the oldest notification
-    if (newNotificationData.length === 10) {
-      newNotificationData.shift();
-    }
+    // // If the array size is 10, remove the oldest notification
+    // if (newNotificationData.length === 10) {
+    //   newNotificationData.shift();
+    // }
 
-    // Add the latest notification
-    newNotificationData.push(data);
+    // // Add the latest notification
+    // newNotificationData.push(data);
 
-    console.log(newNotificationData, "handlemanager");
+    // console.log(newNotificationData, "handlemanager");
 
-    // Update the state with the new array
-    setNotificationData(newNotificationData);
+    // // Update the state with the new array
+    // setNotificationData(newNotificationData);
+
+    setNotificationData((prevNotificationData) => {
+      let newNotificationData = [...prevNotificationData];
+
+      if (newNotificationData.length === 10) {
+        newNotificationData.shift();
+      }
+
+      newNotificationData.push(data);
+
+      console.log(newNotificationData, "handlemanager");
+      return newNotificationData;
+    });
   };
 
   React.useEffect(() => {
