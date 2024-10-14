@@ -17,7 +17,7 @@ export default function CommonHeader({ children }) {
         <SearchDomain />
         <NotifcationManager />
       </div>
-
+      {children}
       <Toaster />
     </CommonQueue>
   );
