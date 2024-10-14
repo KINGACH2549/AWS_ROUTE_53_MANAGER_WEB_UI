@@ -35,7 +35,7 @@ import { DeleteZoneModal } from "./deleteZone/DeleteZoneModal";
 import NoZoneFound from "./NoZoneFound";
 import Link from "next/link";
 
-export const columns = (showDeleteButton, setZoneId) => [
+export const columns = (showDeleteButton, setZoneId, setZoneName) => [
   {
     id: "select",
     header: ({ table }) => (
@@ -52,8 +52,10 @@ export const columns = (showDeleteButton, setZoneId) => [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => {
-          if (!!value)
+          if (!!value) {
             setZoneId(row.getValue("Id")?.replace("/hostedzone/", ""));
+            setZoneName(row.getValue("Name")?.replace("com.", "com"));
+          }
           row.toggleSelected(!!value);
           showDeleteButton(!!value);
         }}
@@ -135,14 +137,6 @@ export const columns = (showDeleteButton, setZoneId) => [
     },
   },
 ];
-const data = [
-  {
-    Id: "m5gr84i9",
-    CallerReference: 316,
-    Name: "ken99@yahoo.com",
-    status: "sucesss",
-  },
-];
 
 function DataTableDemo(data, setChanges) {
   const [sorting, setSorting] = React.useState([]);
@@ -151,10 +145,11 @@ function DataTableDemo(data, setChanges) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [deleteButton, showDeleteButton] = React.useState(false);
   const [zoneId, setZoneId] = React.useState("");
+  const [zoneName, setZoneName] = React.useState("");
 
   const table = useReactTable({
     data,
-    columns: columns(showDeleteButton, setZoneId),
+    columns: columns(showDeleteButton, setZoneId, setZoneName),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -203,6 +198,7 @@ function DataTableDemo(data, setChanges) {
               zoneId={zoneId}
               setChanges={setChanges}
               setRowSelection={setRowSelection}
+              zoneName={zoneName}
             />
           ) : (
             ""

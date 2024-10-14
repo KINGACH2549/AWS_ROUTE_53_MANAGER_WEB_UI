@@ -14,7 +14,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { manageDnsRecords } from "@/app/api/CreateDnsRecord";
 import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 
 export default function ManageRecord(props) {
   const {
@@ -46,14 +45,27 @@ export default function ManageRecord(props) {
       .then((res) => {
         if (changeMode) changeMode(false);
         else toggleDrawer(false);
+        res.data.message =
+          "Record type " +
+          data.Type +
+          "  updates for " +
+          data.Name +
+          " " +
+          res.data.ChangeInfo.Status;
+        res.data.title = zoneName + " record update activity";
+
+        toast({
+          title: res.data.title,
+          description: res.data.message,
+        });
         setChanges([res]);
       })
       .catch((e) => {
         console.log(e);
         toast({
           variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: e.response?.data?.error,
+          title: "Uh oh! It doesn't look alright",
+          description: e.response?.data?.message || "Something went wrong",
           // action: <ToastAction altText="Try again">Try again</ToastAction>,
           duration: Infinity,
         });

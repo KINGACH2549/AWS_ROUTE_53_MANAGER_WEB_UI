@@ -1,14 +1,14 @@
 import { AlertCircle } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-export default function Error() {
+import { ErrorContext } from "./custom-hooks";
+export default function Error({ children }) {
+  const [errorMessage, setErrorMessage] = useState("");
   return (
     <>
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>Something Went Wrong</AlertDescription>
-      </Alert>
+      <ErrorContext.Provider value={{ errorMessage, setErrorMessage }}>
+        {children}
+      </ErrorContext.Provider>
     </>
   );
 }

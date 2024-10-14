@@ -33,13 +33,17 @@ export default function CreateHostedZone(props) {
     })
       .then((res) => {
         console.log(res, "ww");
+        (res.data.message =
+          "Zone " +
+          domainName +
+          " Status " +
+          res.data.ChangeInfo.Status +
+          " with all Name Servers"),
+          (res.data.title = "Hosted Zone Creation Request");
+
         toast({
-          title: "Hosted Zone Request Created",
-          description:
-            "Zone " +
-            res.data.HostedZone.Name +
-            " Status - " +
-            res.data.ChangeInfo.Status,
+          title: res.data.title,
+          description: res.data.message,
         });
         setChanges([res]);
       })

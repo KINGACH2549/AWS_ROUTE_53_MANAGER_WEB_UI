@@ -13,8 +13,10 @@ const setTimeOutWithPromise = (callBack, delay) => {
 export const notificationHandler = async (notificationsQueue) => {
   if (notificationsQueue.current.length > 0) {
     let element = notificationsQueue.current.shift();
-    const HostedZoneName = element.data?.HostedZone?.Name;
-    console.log(HostedZoneName);
+
+    const inititalStatus = element?.data?.ChangeInfo?.Status;
+    const title = element.data.title;
+    const message = element.data.message;
     while (
       (element?.statusCode === 200 || element?.statusCode === 201) &&
       element?.data?.ChangeInfo?.Status.includes("PENDING")
@@ -28,9 +30,15 @@ export const notificationHandler = async (notificationsQueue) => {
       console.log(response);
       element = response;
     }
+
+    const messageAfterCompleteActivity = message.replace(
+      inititalStatus,
+      element?.data?.ChangeInfo?.Status
+    );
+
     return {
-      Status: element.data.ChangeInfo.Status,
-      HostedZoneName: HostedZoneName,
+      title,
+      message: messageAfterCompleteActivity,
     };
   }
   return null;

@@ -70,6 +70,7 @@ export default function ViewRecord({
                   zoneID={zoneID}
                   toggleDrawer={toggleDrawer}
                   setChanges={setChanges}
+                  zoneName={zoneName}
                 />
               </div>
             )}

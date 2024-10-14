@@ -26,10 +26,10 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
       <>
         <Card>
           <CardHeader>
-            <CardDescription>Hosted Zone Activity</CardDescription>
+            <CardDescription>{data.title}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>{"Zone " + data.HostedZoneName + " Status - " + data.Status}</p>
+            <p>{data.message}</p>
           </CardContent>
         </Card>
       </>
@@ -140,9 +140,8 @@ export default function NotifcationManager(props) {
       notificationHandler(notificationsQueue).then((data) => {
         if (data) {
           toast({
-            title: "Hosted Zone Activity",
-            description:
-              "Zone " + data.HostedZoneName + " Status - " + data.Status,
+            title: data.title,
+            description: data.message,
           });
           handleNotificationData(data);
         }
