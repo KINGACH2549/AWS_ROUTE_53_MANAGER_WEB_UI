@@ -53,7 +53,7 @@ export function PopoverDemo() {
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className="bg-black text-white hover:bg-gray-900 hover:text-white"
+          className="bg-gray-900 text-white hover:bg-gray-800 hover:text-white"
           variant="outline"
         >
           Update API Keys

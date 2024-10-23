@@ -25,8 +25,8 @@ export default function HostedZone(props) {
         <Button
           className={`${
             localStorage.getItem("API_KEYS")
-              ? "bg-black text-white hover:bg-gray-900 hover:text-white"
-              : "bg-gray-800  text-white hover:bg-gray-600 hover:text-white cursor-not-allowed"
+              ? "bg-gray-900 text-white hover:bg-gray-800 hover:text-white"
+              : "bg-gray-700  text-white hover:bg-gray-600 hover:text-white cursor-not-allowed"
           }`}
           variant="outline"
         >

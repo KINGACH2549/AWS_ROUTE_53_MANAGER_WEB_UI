@@ -159,6 +159,9 @@ export default function NotifcationManager(props) {
       <div className="relative">
         <IoNotifications
           className="w-32 h-[1.8rem] cursor-pointer"
+          style={{
+            color: "rgb(17 24 39 / 90%)",
+          }}
           onClick={(e) => {
             e.stopPropagation(); // Prevent closing when clicking the icon
             setScrollAreaNotification(true);
