@@ -6,7 +6,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { IoNotifications } from "react-icons/io5";
 import { useToast } from "@/components/ui/use-toast";
-import { CheckCheck } from "lucide-react";
 import { Ellipsis } from "lucide-react";
 import { CircleCheckBig } from "lucide-react";
 import {
@@ -188,6 +187,22 @@ export default function NotifcationManager(props) {
   return (
     <>
       <div className="relative">
+        {notificationData.length > 0 && (
+          <p
+            className="text-sm bg-red-500 absolute text-white"
+            style={{
+              fontSize: "0.5rem",
+              padding: "0.5px",
+              paddingLeft: "6px",
+              paddingRight: "6px",
+              borderRadius: "10px",
+              top: "50%",
+              left: "50%",
+            }}
+          >
+            {notificationData.length}
+          </p>
+        )}
         <IoNotifications
           className="w-32 h-[1.8rem] cursor-pointer"
           style={{
