@@ -8,6 +8,7 @@ import ZoneRecords from "./ZoneRecords";
 import { getAllRecordTypes } from "@/app/api/MetaData";
 import DisplayZoneRecords from "./DisplayZoneRecords";
 import { useNotificationQueue } from "@/app/custom-hooks";
+import LoadingComponent from "@/app/components/LoadingComponent";
 
 export default function App({ zoneID }) {
   const [zonedetails, setZoneDetails] = useState({});
@@ -38,6 +39,7 @@ export default function App({ zoneID }) {
             changes={changes}
             setChanges={setChanges}
           />
+
           <DisplayZoneRecords
             zoneID={zoneID}
             zoneName={zonedetails.HostedZone.Name.replace("com.", "com")}
@@ -47,7 +49,8 @@ export default function App({ zoneID }) {
           />
         </>
       ) : (
-        <p>Loading...</p>
+        // <p>Loading...</p>
+        <LoadingComponent />
       )}
     </>
   );

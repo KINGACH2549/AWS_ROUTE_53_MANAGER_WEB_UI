@@ -17,6 +17,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { createHostedZone } from "../api/CreateHostedZone";
+import { useErrorNotification } from "../custom-hooks";
 
 export default function CreateHostedZone(props) {
   const [domainName, setDomainName] = React.useState(null);
@@ -24,7 +25,7 @@ export default function CreateHostedZone(props) {
   const { changes, setChanges, handleDialog } = props;
 
   const { toast } = useToast();
-
+  const { setErrorMessage } = useErrorNotification();
   const handleSubmit = (e) => {
     e.preventDefault();
     createHostedZone({
@@ -46,11 +47,11 @@ export default function CreateHostedZone(props) {
           description: res.data.message,
         });
         setChanges([res]);
+        handleDialog(false);
       })
       .catch((e) => {
-        console.log(e);
+        setErrorMessage(e.response?.data?.message || "Something went wrong");
       });
-    handleDialog(false);
   };
   return (
     <>

@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { manageDnsRecords } from "@/app/api/CreateDnsRecord";
 import { useToast } from "@/components/ui/use-toast";
+import { useErrorNotification } from "@/app/custom-hooks";
 
 export default function ManageRecord(props) {
   const {
@@ -36,6 +37,7 @@ export default function ManageRecord(props) {
   });
 
   const { toast } = useToast();
+  const { setErrorMessage } = useErrorNotification();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -62,13 +64,15 @@ export default function ManageRecord(props) {
       })
       .catch((e) => {
         console.log(e);
-        toast({
-          variant: "destructive",
-          title: "Uh oh! It doesn't look alright",
-          description: e.response?.data?.message || "Something went wrong",
-          // action: <ToastAction altText="Try again">Try again</ToastAction>,
-          duration: Infinity,
-        });
+
+        // toast({
+        //   variant: "destructive",
+        //   title: "Uh oh! It doesn't look alright",
+        //   description: e.response?.data?.message || "Something went wrong",
+        //   // action: <ToastAction altText="Try again">Try again</ToastAction>,
+        //   duration: Infinity,
+        // });
+        setErrorMessage(e.response?.data?.message || "Something went wrong");
       });
   };
 

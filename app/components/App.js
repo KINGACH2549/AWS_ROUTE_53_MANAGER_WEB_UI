@@ -7,6 +7,7 @@ import NotifcationManager from "./notifications/NotificationManager";
 import { getHostedZoneList } from "../api/GetHostedZone";
 import { useEffect, useState, useRef } from "react";
 import { useNotificationQueue } from "../custom-hooks";
+import LoadingComponent from "./LoadingComponent";
 
 export default function App() {
   const [hostedZonelist, setHostedZoneList] = useState([]); // I can optimize this

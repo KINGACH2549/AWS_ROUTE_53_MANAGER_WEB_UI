@@ -14,10 +14,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useErrorNotification } from "@/app/custom-hooks";
 
 export default function DeleteZone({ zoneID }) {
   const router = useRouter();
   const { toast } = useToast();
+  const { setErrorMessage } = useErrorNotification();
   const deleteZone = (zoneId) => {
     console.log(zoneId);
     // call Delete API
@@ -33,13 +35,15 @@ export default function DeleteZone({ zoneID }) {
       })
       .catch((e) => {
         console.log(e);
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: e.response?.data?.error,
-          // action: <ToastAction altText="Try again">Try again</ToastAction>,
-          duration: Infinity,
-        });
+        setErrorMessage(e.response?.data?.message || "Something went wrong");
+
+        // toast({
+        //   variant: "destructive",
+        //   title: "Uh oh! Something went wrong.",
+        //   description: e.response?.data?.error,
+        //   // action: <ToastAction altText="Try again">Try again</ToastAction>,
+        //   duration: Infinity,
+        // });
       });
   };
   return (
