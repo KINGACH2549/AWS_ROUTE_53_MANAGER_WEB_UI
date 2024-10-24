@@ -6,6 +6,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { IoNotifications } from "react-icons/io5";
 import { useToast } from "@/components/ui/use-toast";
+import { CheckCheck } from "lucide-react";
+import { Ellipsis } from "lucide-react";
+import { CircleCheckBig } from "lucide-react";
 
 import {
   Card,
@@ -40,11 +43,26 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
     <div
       // className=" bg-gray-100 absolute top-[50px] right-[80px]"
       // className=" bg-gray-100"
-      className="absolute top-[35px]  right-0 bg-white h-96 w-80 z-50 shadow-lg rounded-md border"
+      className="absolute top-[35px]  right-0 bg-white h-auto w-80 z-50 shadow-lg rounded-md border"
       onClick={(e) => e.stopPropagation()}
     >
+      <div className="p-1 pt-0 pb-0 flex justify-between items-center">
+        <Ellipsis strokeWidth={0.5} height={50} width={60} />
+        {notifications.length > 0 && (
+          <CircleCheckBig
+            className="hover:cursor-pointer"
+            strokeWidth={0.5}
+            height={30}
+            width={50}
+            onClick={(e) => {
+              handleNotifications([]);
+            }}
+          />
+        )}
+      </div>
+      <Separator className="my-1" />
       {notifications.length > 0 ? (
-        <ScrollArea className="relative h-full w-full rounded-md">
+        <ScrollArea className="relative h-96 w-full rounded-md">
           <div className="p-4">
             {notifications.map(
               (
@@ -59,7 +77,7 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
               )
             )}
 
-            <div className="p-2 w-full bg-white absolute bottom-[0] z-25 flex items-center justify-center text-sm">
+            {/* <div className="p-2 w-full bg-white absolute bottom-[0] z-25 flex items-center justify-center text-sm">
               <Button
                 onClick={(e) => {
                   handleNotifications([]);
@@ -67,11 +85,11 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
               >
                 Mark all as Read
               </Button>
-            </div>
+            </div> */}
           </div>
         </ScrollArea>
       ) : (
-        <div className="h-full flex flex-col justify-center gap-4">
+        <div className="h-96 flex flex-col justify-center gap-4">
           <p className="text-md text-center text-gray-800">
             You are all Catched Up
           </p>
