@@ -9,6 +9,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { CheckCheck } from "lucide-react";
 import { Ellipsis } from "lucide-react";
 import { CircleCheckBig } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import {
   Card,
@@ -28,7 +34,7 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
   const notifications = notificationData.map((data) => {
     return (
       <>
-        <Card>
+        <Card style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}>
           <CardHeader>
             <CardDescription>{data.title}</CardDescription>
           </CardHeader>
@@ -43,21 +49,39 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
     <div
       // className=" bg-gray-100 absolute top-[50px] right-[80px]"
       // className=" bg-gray-100"
-      className="absolute top-[35px]  right-0 bg-white h-auto w-80 z-50 shadow-lg rounded-md border"
+      style={{ boxShadow: "0 2px 5px rgb(252 3 241 / 50%)" }}
+      className="absolute top-[35px]  right-0 bg-white h-auto w-80 z-50  shadow-[0_2px_10px_rgb(255, 3, 119)] rounded-md border"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="p-1 pt-0 pb-0 flex justify-between items-center">
         <Ellipsis strokeWidth={0.5} height={50} width={60} />
         {notifications.length > 0 && (
-          <CircleCheckBig
-            className="hover:cursor-pointer"
-            strokeWidth={0.5}
-            height={30}
-            width={50}
-            onClick={(e) => {
-              handleNotifications([]);
-            }}
-          />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <CircleCheckBig
+                  className="hover:cursor-pointer"
+                  strokeWidth={0.5}
+                  height={30}
+                  width={50}
+                  onClick={(e) => {
+                    handleNotifications([]);
+                  }}
+                />
+              </TooltipTrigger>
+              <TooltipContent className="shadow-md">
+                <p
+                  style={{
+                    fontSize: "1.0rem",
+                  }}
+                  // bg-gradient-to-r from-gray-700 via-gray-900 to-black
+                  className="text-gray-600 rounded-full"
+                >
+                  Mark all as read
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         )}
       </div>
       <Separator className="my-1" />
