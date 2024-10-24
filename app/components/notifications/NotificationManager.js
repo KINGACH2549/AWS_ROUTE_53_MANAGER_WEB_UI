@@ -18,6 +18,7 @@ import {
 import { notificationHandler } from "./NotificationHandler";
 import { Button } from "@/components/ui/button";
 import { useNotificationQueue } from "@/app/custom-hooks";
+import { PartyPopper } from "lucide-react";
 
 export function ScrollAreaDemo({ notificationData, handleNotifications }) {
   console.log(notificationData, "manager");
@@ -39,13 +40,13 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
     <div
       // className=" bg-gray-100 absolute top-[50px] right-[80px]"
       // className=" bg-gray-100"
-      className="absolute top-[35px] left-[1px] right-0 bg-white w-80 z-50 shadow-lg rounded-md"
+      className="absolute top-[35px]  right-0 bg-white h-96 w-80 z-50 shadow-lg rounded-md border"
       onClick={(e) => e.stopPropagation()}
     >
-      <ScrollArea className="h-72 w-full rounded-md border">
-        <div className="p-4">
-          {notifications.length > 0 ? (
-            notifications.map(
+      {notifications.length > 0 ? (
+        <ScrollArea className="relative h-full w-full rounded-md">
+          <div className="p-4">
+            {notifications.map(
               (
                 tag // render notification
               ) => (
@@ -56,14 +57,9 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
                   <Separator className="my-2" />
                 </>
               )
-            )
-          ) : (
-            <div className="flex flex-col justify-center">
-              <p className="text-md text-center">You are all Catched Up</p>
-            </div>
-          )}
-          {notifications.length > 0 && (
-            <div className="flex items-center justify-center">
+            )}
+
+            <div className="p-2 w-full bg-white absolute bottom-[0] z-25 flex items-center justify-center text-sm">
               <Button
                 onClick={(e) => {
                   handleNotifications([]);
@@ -72,9 +68,22 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
                 Mark all as Read
               </Button>
             </div>
-          )}
+          </div>
+        </ScrollArea>
+      ) : (
+        <div className="h-full flex flex-col justify-center gap-4">
+          <p className="text-md text-center text-gray-800">
+            You are all Catched Up
+          </p>
+          <div className="flex justify-center">
+            <PartyPopper
+              size={48}
+              color="rgb(83 181 85/ 84%)"
+              strokeWidth={1}
+            />
+          </div>
         </div>
-      </ScrollArea>
+      )}
     </div>
   );
 }
@@ -93,26 +102,6 @@ export default function NotifcationManager(props) {
     setNotificationData(data);
   };
   const handleNotificationData = (data) => {
-    // // Let's say i have less than 10 things than then include it in array
-    // // if array size ==10 then remove the oldest notification and push latest and save array
-    // // Create a new array with the current notifications
-
-    // console.log(notificationData, "handle1");
-    // let newNotificationData = [...notificationData];
-
-    // // If the array size is 10, remove the oldest notification
-    // if (newNotificationData.length === 10) {
-    //   newNotificationData.shift();
-    // }
-
-    // // Add the latest notification
-    // newNotificationData.push(data);
-
-    // console.log(newNotificationData, "handlemanager");
-
-    // // Update the state with the new array
-    // setNotificationData(newNotificationData);
-
     setNotificationData((prevNotificationData) => {
       let newNotificationData = [...prevNotificationData];
 
