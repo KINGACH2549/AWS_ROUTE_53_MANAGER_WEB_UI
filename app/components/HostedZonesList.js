@@ -38,16 +38,16 @@ import Link from "next/link";
 export const columns = (showDeleteButton, setZoneId, setZoneName) => [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
+    // header: ({ table }) => (
+    //   <Checkbox
+    //     checked={
+    //       table.getIsAllPageRowsSelected() ||
+    //       (table.getIsSomePageRowsSelected() && "indeterminate")
+    //     }
+    //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+    //     aria-label="Select all"
+    //   />
+    // ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
@@ -138,7 +138,13 @@ export const columns = (showDeleteButton, setZoneId, setZoneName) => [
   },
 ];
 
-function DataTableDemo(data, setChanges) {
+function DataTableDemo(
+  data,
+  setChanges,
+  marker,
+  handleMarker,
+  handlePagination
+) {
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -168,6 +174,20 @@ function DataTableDemo(data, setChanges) {
     },
   });
 
+  const handleNextButton = () => {
+    handlePagination(marker[marker.length - 1]);
+  };
+
+  const handlePreviousButton = () => {
+    const markers = [...marker];
+    let i = 0;
+    while (i < 2) {
+      markers.pop();
+      i++;
+    }
+    handlePagination(markers[markers.length - 1]);
+    handleMarker(markers);
+  };
   // console.log(table.getRowModel().rows, "22");
 
   // table.getRowModel().rows.map((row) => {
@@ -176,7 +196,7 @@ function DataTableDemo(data, setChanges) {
   // });
 
   return (
-    <div className="w-full px-10">
+    <div className="w-full px-10 v">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter zones..."
@@ -220,7 +240,10 @@ function DataTableDemo(data, setChanges) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div
+        className="rounded-md border"
+        style={{ boxShadow: "0 1px 5px rgba(255, 3, 119,50%)" }}
+      >
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -269,24 +292,29 @@ function DataTableDemo(data, setChanges) {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+        {/* <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+        </div> */}
         <div className="space-x-2">
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}
+            // onClick={() => table.previousPage()}
+            onClick={handlePreviousButton}
+            disabled={marker.length <= 1 || marker[0] === "/"}
+            // disabled={!table.getCanPreviousPage()}
           >
             Previous
           </Button>
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}
+            onClick={handleNextButton}
+            // onClick={() => table.nextPage()}
+            disabled={marker.length==0 || marker[marker.length - 1] === "/"}
           >
             Next
           </Button>
@@ -297,7 +325,18 @@ function DataTableDemo(data, setChanges) {
 }
 
 export default function HostedZonesList(props) {
-  const { hostedZonelist, setChanges } = props;
+  const { hostedZonelist, setChanges, marker, handleMarker, handlePagination } =
+    props;
 
-  return <>{DataTableDemo(hostedZonelist, setChanges)}</>;
+  return (
+    <>
+      {DataTableDemo(
+        hostedZonelist,
+        setChanges,
+        marker,
+        handleMarker,
+        handlePagination
+      )}
+    </>
+  );
 }

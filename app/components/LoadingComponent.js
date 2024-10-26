@@ -1,5 +1,5 @@
 "use client";
-import { Player } from "@lottiefiles/react-lottie-player";
+import { LoaderCircle } from "lucide-react";
 
 export default function LoadingComponent() {
   return (
@@ -11,7 +11,8 @@ export default function LoadingComponent() {
         speed={0.5}
         style={{ width: "10%" }}
       /> */}
-      <p>Loading...</p>
+      <LoaderCircle height={100} width={100} className="loader" />
+      {/* <p className="loader">Loading...</p> */}
     </>
   );
 }
