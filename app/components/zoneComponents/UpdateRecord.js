@@ -63,7 +63,7 @@ export default function UpdateRecord(props) {
                     <SelectValue placeholder="DNS Record Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {metaData?.RecordTypes.map((recordType) => (
+                    {metaData?.RecordTypes.map((recordType, index) => (
                       <SelectItem value={recordType.type}>
                         {recordType.type + " - " + recordType.info}
                       </SelectItem>

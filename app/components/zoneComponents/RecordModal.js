@@ -55,7 +55,7 @@ const defaultRecords = [
                 <SelectValue placeholder="DNS Record Type" />
               </SelectTrigger>
               <SelectContent>
-                {this.value.map((recordType) => (
+                {this.value.map((recordType, index) => (
                   <SelectItem value={recordType}>
                     {recordType.type + " - " + recordType.info}
                   </SelectItem>
@@ -72,7 +72,7 @@ export default function RecordModal(props) {
   const { metaData, zoneDetails } = props;
   const [records, setRecords] = React.useState(defaultRecords);
   const recordChange = (value, recordName) => {
-    const newRecords = records.map((record) => {
+    const newRecords = records.map((record, index) => {
       if (record.name === recordName) {
         return {
           ...record,
@@ -84,7 +84,7 @@ export default function RecordModal(props) {
     setRecords(newRecords);
   };
   React.useEffect(() => {
-    defaultRecords.map((record) => {
+    defaultRecords.map((record, index) => {
       if (record.name === "RecordType") {
         record.value = metaData.RecordTypes;
       }
@@ -92,7 +92,7 @@ export default function RecordModal(props) {
     setRecords(defaultRecords);
   });
 
-  const recordInputs = records.map((record) => {
+  const recordInputs = records.map((record, index) => {
     switch (record.name) {
       case "Subdomain":
         return record.executable(
