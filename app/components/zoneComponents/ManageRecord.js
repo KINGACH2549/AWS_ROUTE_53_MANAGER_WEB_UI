@@ -40,7 +40,6 @@ export default function ManageRecord(props) {
   const { setErrorMessage } = useErrorNotification();
 
   const onSubmit = (data) => {
-    console.log(data);
     if (zoneName && !data.Name.includes(zoneName))
       data.Name = data.Name + "." + zoneName;
     manageDnsRecords(data, zoneID, "UPSERT")
@@ -63,15 +62,6 @@ export default function ManageRecord(props) {
         setChanges([res]);
       })
       .catch((e) => {
-        console.log(e);
-
-        // toast({
-        //   variant: "destructive",
-        //   title: "Uh oh! It doesn't look alright",
-        //   description: e.response?.data?.message || "Something went wrong",
-        //   // action: <ToastAction altText="Try again">Try again</ToastAction>,
-        //   duration: Infinity,
-        // });
         setErrorMessage(e.response?.data?.message || "Something went wrong");
       });
   };

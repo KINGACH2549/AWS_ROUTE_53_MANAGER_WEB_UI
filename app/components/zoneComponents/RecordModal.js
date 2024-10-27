@@ -81,7 +81,6 @@ export default function RecordModal(props) {
       }
       return record; // Return the other records unchanged
     });
-    console.log(newRecords, "newRecords");
     setRecords(newRecords);
   };
   React.useEffect(() => {
@@ -112,52 +111,9 @@ export default function RecordModal(props) {
           <DialogTitle>Create Record</DialogTitle>
         </DialogHeader>
         <ScrollArea className="w-full">
-          <div className="grid grid-cols-2 gap-12 p-2 pr-4">
-            {recordInputs}
-            {/* <div>
-              <Label>Subdomain</Label>
-              <Input placeholder="Subdomain" />
-              <span>achintyamishra.com</span>
-            </div>
-            <div>
-              <Label>Record Type</Label>
-              <Input placeholder="Record Tye" />
-            </div>
-            <div>
-              <Label>TTL</Label>
-              <Input placeholder="TTL" />
-            </div>
-            <div>
-              <Label>Routing Policy</Label>
-              <Input value="Simple" />
-            </div> */}
-          </div>
+          <div className="grid grid-cols-2 gap-12 p-2 pr-4">{recordInputs}</div>
         </ScrollArea>
 
-        {/* <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Subdomain
-            </Label>
-            <Input
-              id="name"
-              placeholder="Enter your Domain"
-              className="col-span-3"
-              //   onChange={(event) => setDomainName(event.target.value)}
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Caller Id
-            </Label>
-            <Input
-              id="username"
-              placeholder="Enter Caller Reference Id"
-              className="col-span-3"
-              //   onChange={(event) => setCallerReferenceId(event.target.value)}
-            />
-          </div>
-        </div> */}
         <DialogFooter>
           <Button type="submit">Submit</Button>
         </DialogFooter>

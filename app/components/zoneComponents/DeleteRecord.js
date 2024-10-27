@@ -27,7 +27,6 @@ export default function DeleteRecord({
     if (changeResourceRequest.id) delete changeResourceRequest.id;
     deleteDnsRecord(changeResourceRequest, zoneID)
       .then((res) => {
-        console.log(res);
         (res.data.message =
           "Record type " +
           changeResourceRequest.Type +
@@ -44,9 +43,7 @@ export default function DeleteRecord({
         setChanges([res]);
         toggleDrawer(false);
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
   };
   return (
     <AlertDialog>

@@ -29,7 +29,6 @@ import { useNotificationQueue } from "@/app/custom-hooks";
 import { PartyPopper } from "lucide-react";
 
 export function ScrollAreaDemo({ notificationData, handleNotifications }) {
-  console.log(notificationData, "manager");
   const notifications = notificationData.map((data) => {
     return (
       <>
@@ -46,8 +45,6 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
   });
   return (
     <div
-      // className=" bg-gray-100 absolute top-[50px] right-[80px]"
-      // className=" bg-gray-100"
       style={{ boxShadow: "0 2px 5px rgb(252 3 241 / 50%)" }}
       className="absolute top-[35px]  right-0 bg-white h-auto w-80 z-50  shadow-[0_2px_10px_rgb(255, 3, 119)] rounded-md border"
       onClick={(e) => e.stopPropagation()}
@@ -73,7 +70,6 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
                   style={{
                     fontSize: "1.0rem",
                   }}
-                  // bg-gradient-to-r from-gray-700 via-gray-900 to-black
                   className="text-gray-600 rounded-full"
                 >
                   Mark all as read
@@ -99,16 +95,6 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
                 </>
               )
             )}
-
-            {/* <div className="p-2 w-full bg-white absolute bottom-[0] z-25 flex items-center justify-center text-sm">
-              <Button
-                onClick={(e) => {
-                  handleNotifications([]);
-                }}
-              >
-                Mark all as Read
-              </Button>
-            </div> */}
           </div>
         </ScrollArea>
       ) : (
@@ -132,14 +118,12 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
 export default function NotifcationManager(props) {
   const { toast } = useToast();
   const notificationsQueue = useNotificationQueue();
-  // const { notificationsQueue } = props;
   const [showScrollAreaNotification, setScrollAreaNotification] =
     React.useState(false);
 
   const [notificationData, setNotificationData] = React.useState([]);
 
   const handleNotifications = (data) => {
-    console.log("delete notifications");
     setNotificationData(data);
   };
   const handleNotificationData = (data) => {
@@ -152,7 +136,6 @@ export default function NotifcationManager(props) {
 
       newNotificationData.push(data);
 
-      console.log(newNotificationData, "handlemanager");
       return newNotificationData;
     });
   };
@@ -166,7 +149,6 @@ export default function NotifcationManager(props) {
     window.addEventListener("click", handleBodyClick);
 
     const intervalId = setInterval(() => {
-      console.log(notificationsQueue, "inside notification");
       notificationHandler(notificationsQueue).then((data) => {
         if (data) {
           toast({

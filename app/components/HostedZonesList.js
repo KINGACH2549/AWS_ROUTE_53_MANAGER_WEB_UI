@@ -9,7 +9,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,9 +17,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -38,16 +35,7 @@ import Link from "next/link";
 export const columns = (showDeleteButton, setZoneId, setZoneName) => [
   {
     id: "select",
-    // header: ({ table }) => (
-    //   <Checkbox
-    //     checked={
-    //       table.getIsAllPageRowsSelected() ||
-    //       (table.getIsSomePageRowsSelected() && "indeterminate")
-    //     }
-    //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //     aria-label="Select all"
-    //   />
-    // ),
+
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
@@ -114,25 +102,6 @@ export const columns = (showDeleteButton, setZoneId, setZoneName) => [
         >
           View Zone
         </Link>
-        // <DropdownMenu>
-        //   <DropdownMenuTrigger asChild>
-        //     <Button variant="ghost" className="h-8 w-8 p-0">
-        //       <span className="sr-only">Open menu</span>
-        //       <MoreHorizontal className="h-4 w-4" />
-        //     </Button>
-        //   </DropdownMenuTrigger>
-        //   <DropdownMenuContent align="end">
-        //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        //     <DropdownMenuItem
-        //       onClick={() => navigator.clipboard.writeText(payment.id)}
-        //     >
-        //       Copy payment ID
-        //     </DropdownMenuItem>
-        //     <DropdownMenuSeparator />
-        //     <DropdownMenuItem>View customer</DropdownMenuItem>
-        //     <DropdownMenuItem>View payment details</DropdownMenuItem>
-        //   </DropdownMenuContent>
-        // </DropdownMenu>
       );
     },
   },
@@ -188,12 +157,6 @@ function DataTableDemo(
     handlePagination(markers[markers.length - 1]);
     handleMarker(markers);
   };
-  // console.log(table.getRowModel().rows, "22");
-
-  // table.getRowModel().rows.map((row) => {
-  //   console.log(row.original, "row");
-  //   row.getVisibleCells().map((cell) => {});
-  // });
 
   return (
     <div className="w-full px-10 v">
@@ -281,7 +244,7 @@ function DataTableDemo(
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={columns.length + 1}
                   className="h-24 text-center"
                 >
                   <NoZoneFound />
@@ -292,19 +255,13 @@ function DataTableDemo(
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        {/* <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div> */}
         <div className="space-x-2">
           <Button
             variant="outline"
             size="sm"
             style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}
-            // onClick={() => table.previousPage()}
             onClick={handlePreviousButton}
             disabled={marker.length <= 1 || marker[0] === "/"}
-            // disabled={!table.getCanPreviousPage()}
           >
             Previous
           </Button>
@@ -313,8 +270,7 @@ function DataTableDemo(
             size="sm"
             style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}
             onClick={handleNextButton}
-            // onClick={() => table.nextPage()}
-            disabled={marker.length==0 || marker[marker.length - 1] === "/"}
+            disabled={marker.length == 0 || marker[marker.length - 1] === "/"}
           >
             Next
           </Button>

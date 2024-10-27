@@ -1,11 +1,10 @@
 "use client";
 
 import { PopoverDemo } from "./ApiKeysManager";
-// import HostedZone from "./HostedZone";
-import dynamic from "next/dynamic";
 
 import HostedZonesList from "./HostedZonesList";
-const HostedZone = dynamic(() => import("./HostedZone"), { ssr: false });
+import HostedZone from "./HostedZone";
+import { useEffect, useState } from "react";
 
 export default function AWSRoute53Conifg(props) {
   const {
@@ -17,12 +16,32 @@ export default function AWSRoute53Conifg(props) {
     handlePagination,
   } = props;
 
+  const [accessKeys, setAccessKeys] = useState("");
+  const [secretKeys, setSecretKeys] = useState("");
+  useEffect(() => {
+    if (localStorage.getItem("API_KEYS")) {
+      const parts = localStorage.getItem("API_KEYS").split("&&&");
+      setAccessKeys(parts[0]);
+      setSecretKeys(parts[1]);
+    }
+  }, []);
+
   return (
     <>
       <div className="px-10">
         <div className="flex justify-between">
-          <HostedZone changes={changes} setChanges={setChanges} />
-          <PopoverDemo />
+          <HostedZone
+            changes={changes}
+            setChanges={setChanges}
+            accessKeys={accessKeys}
+            secretKeys={secretKeys}
+          />
+          <PopoverDemo
+            accessKeys={accessKeys}
+            setAccessKeys={setAccessKeys}
+            secretKeys={secretKeys}
+            setSecretKeys={setSecretKeys}
+          />
         </div>
         <HostedZonesList
           hostedZonelist={hostedZonelist}

@@ -1,9 +1,10 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import CommonHeader from "./CommonHeader";
-import SiteNotSupported from "./SiteNotSupported";
+import dynamic from "next/dynamic";
 
-const inter = Inter({ subsets: ["latin"] });
+const SiteNotSupported = dynamic(() => import("./SiteNotSupported"), {
+  ssr: false,
+});
 
 export const metadata = {
   title: "Route 53 Manager",
@@ -13,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <SiteNotSupported />
         <div className="condition1">
           <CommonHeader>{children}</CommonHeader>

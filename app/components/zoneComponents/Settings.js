@@ -18,9 +18,6 @@ import DeleteZone from "./DeleteZone";
 import React from "react";
 
 export function SettingsMenu({ zoneDetails }) {
-  //   React.useEffect(()=>{
-  //     document.addEventListener("")
-  //   })
   const [isMenuVisible, setMenuVisible] = React.useState(false);
   const nameServers = zoneDetails?.DelegationSet?.NameServers.map((server) => {
     return (

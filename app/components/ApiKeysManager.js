@@ -15,17 +15,9 @@ import {
   REMOVE_API_KEYS,
 } from "../Constant";
 
-export function PopoverDemo() {
-  const [accessKeys, setAccessKeys] = React.useState("");
-  const [secretKeys, setSecretKeys] = React.useState("");
+export function PopoverDemo(props) {
+  const { accessKeys, setAccessKeys, secretKeys, setSecretKeys } = props;
 
-  React.useEffect(() => {
-    if (localStorage.getItem("API_KEYS")) {
-      const parts = localStorage.getItem("API_KEYS").split("&&&");
-      setAccessKeys(parts[0]);
-      setSecretKeys(parts[1]);
-    }
-  }, []);
   const handleApiKeys = (apiKeys, keyType) => {
     switch (keyType) {
       case KEY_TYPE_ACCESS:
@@ -86,7 +78,6 @@ export function PopoverDemo() {
             </div>
             <div className="grid grid-cols-3 items-center gap-4">
               <Button
-                // className="bg-black text-white hover:bg-gray-900 hover:text-white"
                 className={`${
                   accessKeys.length > 0 && secretKeys.length > 0
                     ? "bg-green-800 text-white hover:bg-green-900 hover:text-white"

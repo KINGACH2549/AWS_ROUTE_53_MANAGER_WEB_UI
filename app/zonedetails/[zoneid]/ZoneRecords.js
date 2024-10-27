@@ -16,12 +16,7 @@ export default function ZoneRecords({
             {"(" + zoneDetails?.HostedZone?.ResourceRecordSetCount + ")"}
           </span>
         </header>
-        {/* <CreateRecord
-          metaData={metaData}
-          zoneDetails={zoneDetails}
-          changes={changes}
-          setChanges={setChanges}
-        /> */}
+
         <CreateRecordWithDrawer
           metaData={metaData}
           setChanges={setChanges}

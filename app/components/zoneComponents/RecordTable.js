@@ -3,14 +3,11 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { ChevronsUp } from "lucide-react";
 import ViewRecord from "./ViewRecord";
 
 export default function RecordTable(props) {
-  //   const recordCards = data.map((card) => <>card</>);
   const { records, zoneName, zoneID, setChanges, metaData } = props;
   const recordCards = records.map((record) => {
     return (
@@ -24,8 +21,6 @@ export default function RecordTable(props) {
             <p className="truncate">Record Name : {record.Name}</p>
           </CardContent>
           <CardFooter className="flex justify-center">
-            {/* <PanelBottomOpen className="hover:cursor" /> */}
-            {/* <ChevronsUp className="hover:cursor-pointer" /> */}
             <ViewRecord
               record={record}
               zoneName={zoneName}

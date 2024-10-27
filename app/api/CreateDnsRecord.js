@@ -66,6 +66,5 @@ export const manageDnsRecords = async (
       Authorization: "Api-Key " + localStorage.getItem("API_KEYS"),
     },
   });
-  console.log(response);
   return response.data;
 };

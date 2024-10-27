@@ -10,9 +10,6 @@ export const listResourceRecordSets = async (zoneID, filters) => {
       params: params,
       headers: { Authorization: "Api-Key " + localStorage.getItem("API_KEYS") },
     });
-    console.log(response);
     return response.data;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };

@@ -7,6 +7,5 @@ export const deleteHostedZoneById = async (zoneID) => {
     params: { Id: zoneID },
     headers: { Authorization: "Api-Key " + localStorage.getItem("API_KEYS") },
   });
-  console.log(response);
   return response.data;
 };

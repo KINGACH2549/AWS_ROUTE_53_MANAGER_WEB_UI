@@ -6,10 +6,6 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import React from "react";
 
 export function ZoneHeader({ zoneDetails }) {
-  //  Badge
-  // zone name
-  // in-sync icon
-  // settings button
   const playerRef = React.useRef(null);
 
   return (

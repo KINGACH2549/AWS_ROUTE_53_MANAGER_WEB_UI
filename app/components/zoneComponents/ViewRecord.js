@@ -4,10 +4,8 @@ import { ChevronsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -16,7 +14,6 @@ import { Label } from "@/components/ui/label";
 import RecordValuesToolTip from "./RecordValuesToolTip";
 import DeleteRecord from "./DeleteRecord";
 import ReadRecord from "./ReadRecord";
-import UpdateRecord from "./UpdateRecord";
 import ManageRecord from "./ManageRecord";
 
 export default function ViewRecord({
@@ -56,8 +53,6 @@ export default function ViewRecord({
       <DrawerContent>
         <div className=" w-full p-4">
           <DrawerHeader className="relative">
-            {/* <div className="flex gap-2">
-              <div> */}
             <DrawerTitle className="text-center">{record.Name}</DrawerTitle>
             <DrawerDescription className="text-center">
               This record is under zone {zoneName}
@@ -79,13 +74,6 @@ export default function ViewRecord({
             {!mode ? (
               <ReadRecord record={record} values={values} />
             ) : (
-              // <UpdateRecord
-              //   record={record}
-              //   metaData={metaData}
-              //   changeMode={changeMode}
-              //   zoneID={zoneID}
-              //   setChanges={setChanges}
-              // />
               <ManageRecord
                 record={record}
                 metaData={metaData}
@@ -95,12 +83,6 @@ export default function ViewRecord({
               />
             )}
           </div>
-          {/* <DrawerFooter>
-            <Button>Submit</Button>
-            <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
-          </DrawerFooter> */}
         </div>
       </DrawerContent>
     </Drawer>

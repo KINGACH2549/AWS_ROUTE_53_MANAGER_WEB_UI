@@ -8,9 +8,6 @@ export const getAllRecordTypes = async () => {
     const response = await axios.get(apiUrl, {
       headers: { Authorization: "Api-Key " + localStorage.getItem("API_KEYS") },
     });
-    console.log(response);
     return response.data;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };

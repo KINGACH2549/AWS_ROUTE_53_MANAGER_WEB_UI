@@ -1,4 +1,3 @@
-import { NOTIFY_HOSTED_ZONE_DELETION } from "@/app/Constant";
 import { deleteHostedZoneById } from "../../api/DeleteHostedZone";
 import {
   AlertDialog,
@@ -22,10 +21,8 @@ export function DeleteZoneModal(props) {
 
   const deleteZone = (zoneId) => {
     // call Delete API
-    console.log(zoneId, "xx");
     deleteHostedZoneById(zoneId)
       .then((res) => {
-        console.log(res);
         (res.data.message =
           "Zone " + zoneName + " Deletion " + res.data.ChangeInfo.Status),
           (res.data.title = "Hosted Zone Deletion Request");
@@ -38,12 +35,10 @@ export function DeleteZoneModal(props) {
         setChanges([res]);
       })
       .catch((e) => {
-        console.log(e);
         toast({
           variant: "destructive",
           title: "Uh oh! It doesn't look alright",
           description: e.response?.data?.message,
-          // action: <ToastAction altText="Try again">Try again</ToastAction>,
           duration: Infinity,
         });
       });

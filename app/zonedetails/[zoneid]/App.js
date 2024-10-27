@@ -1,8 +1,6 @@
 "use client";
 import { getHostedZoneById } from "@/app/api/GetHostedZone";
-import SearchDomain from "@/app/components/header/SearchDomain";
 import { useEffect, useState } from "react";
-import { SiAmazonroute53, SiClojure } from "react-icons/si";
 import { ZoneHeader } from "./ZoneHeader";
 import ZoneRecords from "./ZoneRecords";
 import { getAllRecordTypes } from "@/app/api/MetaData";
@@ -49,7 +47,6 @@ export default function App({ zoneID }) {
           />
         </>
       ) : (
-        // <p>Loading...</p>
         <LoadingComponent />
       )}
     </>

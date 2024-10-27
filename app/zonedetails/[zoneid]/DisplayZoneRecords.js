@@ -33,7 +33,6 @@ export default function DisplayZoneRecords({
       });
 
       miniSearch.current.addAll(records);
-      // searchRecords(filters);
       setRecords(records);
     });
   }, [changes]);

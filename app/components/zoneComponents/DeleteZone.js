@@ -36,14 +36,6 @@ export default function DeleteZone({ zoneID }) {
       .catch((e) => {
         console.log(e);
         setErrorMessage(e.response?.data?.message || "Something went wrong");
-
-        // toast({
-        //   variant: "destructive",
-        //   title: "Uh oh! Something went wrong.",
-        //   description: e.response?.data?.error,
-        //   // action: <ToastAction altText="Try again">Try again</ToastAction>,
-        //   duration: Infinity,
-        // });
       });
   };
   return (

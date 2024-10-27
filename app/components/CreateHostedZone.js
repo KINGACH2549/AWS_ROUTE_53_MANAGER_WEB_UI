@@ -33,7 +33,6 @@ export default function CreateHostedZone(props) {
       CallerReference: callerReferenceId,
     })
       .then((res) => {
-        console.log(res, "ww");
         (res.data.message =
           "Zone " +
           domainName +

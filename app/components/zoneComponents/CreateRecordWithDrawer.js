@@ -8,7 +8,6 @@ export default function CreateRecordWithDrawer(props) {
   const [isDrawerOpen, showDrawer] = useState(false);
 
   const toggleDrawer = (toggleValue) => {
-    // if (!toggleValue) reset();
     showDrawer(toggleValue);
   };
 
