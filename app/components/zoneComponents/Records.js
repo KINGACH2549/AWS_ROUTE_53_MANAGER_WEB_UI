@@ -99,7 +99,7 @@ export default function Record(props) {
                   </SelectTrigger>
                   <SelectContent>
                     {metaData?.RecordTypes.map((recordType) => (
-                      <SelectItem value={recordType.type}>
+                      <SelectItem key={index} value={recordType.type}>
                         {recordType.type + " - " + recordType.info}
                       </SelectItem>
                     ))}
@@ -136,11 +136,6 @@ export default function Record(props) {
                   <SelectValue placeholder="Routing Policy" />
                 </SelectTrigger>
                 <SelectContent>
-                  {/* {field?.value.map((routingPolicy) => (
-                    <SelectItem value={routingPolicy}>
-                      {routingPolicy}
-                    </SelectItem>
-                  ))} */}
                   <SelectItem value={"Simple Routing"}>
                     Simple Routing
                   </SelectItem>

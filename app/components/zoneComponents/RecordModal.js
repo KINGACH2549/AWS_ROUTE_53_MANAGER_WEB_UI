@@ -56,7 +56,7 @@ const defaultRecords = [
               </SelectTrigger>
               <SelectContent>
                 {this.value.map((recordType, index) => (
-                  <SelectItem value={recordType}>
+                  <SelectItem key={index} value={recordType}>
                     {recordType.type + " - " + recordType.info}
                   </SelectItem>
                 ))}

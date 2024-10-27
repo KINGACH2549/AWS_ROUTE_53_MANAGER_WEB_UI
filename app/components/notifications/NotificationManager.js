@@ -29,10 +29,13 @@ import { useNotificationQueue } from "@/app/custom-hooks";
 import { PartyPopper } from "lucide-react";
 
 export function ScrollAreaDemo({ notificationData, handleNotifications }) {
-  const notifications = notificationData.map((data) => {
+  const notifications = notificationData.map((data, index) => {
     return (
       <>
-        <Card style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}>
+        <Card
+          key={index}
+          style={{ boxShadow: "rgb(92 81 189 / 61%) 0px 1px 4px" }}
+        >
           <CardHeader>
             <CardDescription>{data.title}</CardDescription>
           </CardHeader>
