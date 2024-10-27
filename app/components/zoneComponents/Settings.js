@@ -19,15 +19,17 @@ import React from "react";
 
 export function SettingsMenu({ zoneDetails }) {
   const [isMenuVisible, setMenuVisible] = React.useState(false);
-  const nameServers = zoneDetails?.DelegationSet?.NameServers.map((server) => {
-    return (
-      <>
-        <DropdownMenuItem>
-          <span>{server}</span>
-        </DropdownMenuItem>
-      </>
-    );
-  });
+  const nameServers = zoneDetails?.DelegationSet?.NameServers.map(
+    (server, index) => {
+      return (
+        <>
+          <DropdownMenuItem key={index}>
+            <span>{server}</span>
+          </DropdownMenuItem>
+        </>
+      );
+    }
+  );
   return (
     <DropdownMenu
     //   open={isMenuVisible}

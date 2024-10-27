@@ -98,7 +98,7 @@ export default function ManageRecord(props) {
                   </SelectTrigger>
                   <SelectContent>
                     {metaData?.RecordTypes.map((recordType, index) => (
-                      <SelectItem value={recordType.type}>
+                      <SelectItem key={index} value={recordType.type}>
                         {recordType.type + " - " + recordType.info}
                       </SelectItem>
                     ))}

@@ -1,9 +1,11 @@
 import { SelectItem } from "@/components/ui/select";
 export default function FilterItems({ items }) {
-  const filterItems = items?.map((item) => {
+  const filterItems = items?.map((item, index) => {
     return (
       <>
-        <SelectItem value={item.type}>{item.type}</SelectItem>
+        <SelectItem key={index} value={item.type}>
+          {item.type}
+        </SelectItem>
       </>
     );
   });
