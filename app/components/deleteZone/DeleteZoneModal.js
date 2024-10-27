@@ -67,7 +67,6 @@ export function DeleteZoneModal(props) {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              console.log(zoneId, "ww");
               deleteZone(zoneId);
             }}
           >

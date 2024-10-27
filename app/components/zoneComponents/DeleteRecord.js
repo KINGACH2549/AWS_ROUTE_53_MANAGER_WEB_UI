@@ -22,7 +22,6 @@ export default function DeleteRecord({
   const { toast } = useToast();
 
   const deleteRecord = () => {
-    console.log(record, "eee");
     const changeResourceRequest = { ...record };
     if (changeResourceRequest.id) delete changeResourceRequest.id;
     deleteDnsRecord(changeResourceRequest, zoneID)

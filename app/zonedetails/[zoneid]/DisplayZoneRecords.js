@@ -26,7 +26,6 @@ export default function DisplayZoneRecords({
         id: `${record.Name}-${record.Type}-${index}`, // Generate a unique ID based on Name, Type, and index
       }));
 
-      console.log(Object.keys(res.data.ResourceRecordSets[0]));
       miniSearch.current = new MiniSearch({
         fields: ["Name"], // fields to index for full-text search
         storeFields: Object.keys(res.data.ResourceRecordSets[0]), // fields to return with search results

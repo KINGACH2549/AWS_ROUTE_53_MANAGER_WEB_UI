@@ -21,20 +21,12 @@ export default function DeleteZone({ zoneID }) {
   const { toast } = useToast();
   const { setErrorMessage } = useErrorNotification();
   const deleteZone = (zoneId) => {
-    console.log(zoneId);
     // call Delete API
     deleteHostedZoneById(zoneId)
       .then((res) => {
-        console.log(res);
-        //   toast({
-        //     title: "Hosted Zone Deletion Request",
-        //     description:
-        //       "Zone " + zoneId + " Status - " + res.data.ChangeInfo.Status,
-        //   });
         router.replace("/");
       })
       .catch((e) => {
-        console.log(e);
         setErrorMessage(e.response?.data?.message || "Something went wrong");
       });
   };

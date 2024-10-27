@@ -30,7 +30,6 @@ export const createDnsRecord = async (changeResourceRequest, zoneID) => {
       Authorization: "Api-Key " + localStorage.getItem("API_KEYS"),
     },
   });
-  console.log(response);
   return response.data;
 };
 

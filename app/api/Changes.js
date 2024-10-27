@@ -12,10 +12,8 @@ export const getChanges = async (changeId) => {
         Authorization: "Api-Key " + localStorage.getItem("API_KEYS"),
       },
     });
-    console.log(response);
     return response.data;
   } catch (e) {
-    console.log(e);
     return e.response?.data || "Something went wrong, Please try again later";
   }
 };

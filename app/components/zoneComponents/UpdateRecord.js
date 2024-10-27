@@ -26,7 +26,6 @@ export default function UpdateRecord(props) {
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
     manageDnsRecords(data, zoneID, "UPSERT").then((res) => {
       setChanges([res]);
       changeMode(false);

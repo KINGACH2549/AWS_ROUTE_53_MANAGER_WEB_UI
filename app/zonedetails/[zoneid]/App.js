@@ -16,7 +16,6 @@ export default function App({ zoneID }) {
 
   useEffect(() => {
     getHostedZoneById(zoneID).then((data) => {
-      console.log(data.data);
       setZoneDetails(data.data);
     });
 

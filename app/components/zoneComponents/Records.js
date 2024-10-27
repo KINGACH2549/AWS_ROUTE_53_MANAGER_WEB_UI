@@ -36,7 +36,6 @@ export default function Record(props) {
 
   const toast = useToast();
   const onSubmit = (data) => {
-    console.log(data);
     // call create record api
     data.Name =
       data.Name + "." + zoneDetails.HostedZone.Name.replace("com.", "com");
@@ -50,7 +49,6 @@ export default function Record(props) {
         setChanges([res]);
       })
       .catch((e) => {
-        console.log(e);
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",

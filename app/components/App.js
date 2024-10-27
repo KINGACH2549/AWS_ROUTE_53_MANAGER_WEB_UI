@@ -26,7 +26,6 @@ export default function App() {
         }
       })
       .catch((e) => {
-        console.log(e);
         setErrorMessage(e.response?.data?.message || "Something went wrong");
       });
   }, [pagination]);
@@ -44,7 +43,7 @@ export default function App() {
         }
       })
       .catch((e) => {
-        console.log(e);
+        setErrorMessage(e.response?.data?.message || "Something went wrong");
       });
 
     if (changes.length > 0) notificationsQueue.current.push(changes[0]);
