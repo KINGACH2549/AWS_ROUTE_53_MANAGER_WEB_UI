@@ -27,7 +27,6 @@ export const notificationHandler = async (notificationsQueue) => {
         });
         return data;
       }, 20000);
-      console.log(response);
       element = response;
     }
 
