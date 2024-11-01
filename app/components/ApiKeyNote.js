@@ -18,11 +18,11 @@ export default function ApiKeyNote() {
       isDialogOpen={isDialogOpen}
       handleDialog={handleDialog}
     >
-      <DialogHeader>
+      <DialogHeader className="condition1">
         <DialogTitle>Note on Using AWS Route 53 API Keys</DialogTitle>
       </DialogHeader>
       <div>
-        <p className="text-sm leading-relaxed">
+        <p className="text-sm leading-relaxed condition1">
           We currently use your provided AWS Route 53 API keys to interact with
           your hosted zones. While we’re working on adding support for temporary
           access tokens to enhance security, we recommend setting up role-based
@@ -39,10 +39,11 @@ export default function ApiKeyNote() {
           </a>{" "}
           on creating role-based access and generating API keys.
         </p>
+        <p className="condition2">Please view in Desktop Mode</p>
       </div>
       <DialogFooter>
         <span
-          className=" underline text-sm cursor-pointer"
+          className=" underline text-sm cursor-pointer condition1"
           style={{ color: "blue" }}
           onClick={() => {
             handleDialog(false);
