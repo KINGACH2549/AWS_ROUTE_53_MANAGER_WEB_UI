@@ -26,7 +26,10 @@ export default function App() {
         }
       })
       .catch((e) => {
-        setErrorMessage(e.response?.data?.message || "Something went wrong");
+        setErrorMessage(
+          e.response?.data?.message ||
+            "Please check whether the AWS Route 53 API keys are missing; otherwise, the server might be down."
+        );
       });
   }, [pagination]);
 
@@ -43,7 +46,10 @@ export default function App() {
         }
       })
       .catch((e) => {
-        setErrorMessage(e.response?.data?.message || "Something went wrong");
+        setErrorMessage(
+          e.response?.data?.message ||
+            "Please check whether the AWS Route 53 API keys are missing; otherwise, the server might be down."
+        );
       });
 
     if (changes.length > 0) notificationsQueue.current.push(changes[0]);

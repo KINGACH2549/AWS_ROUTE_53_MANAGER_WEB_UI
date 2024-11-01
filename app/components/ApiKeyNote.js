@@ -1,106 +1,57 @@
 import {
-  Dialog,
-  DialogTrigger,
   DialogFooter,
   DialogTitle,
-  DialogClose,
   DialogHeader,
 } from "@/components/ui/dialog";
-import { useState } from "react";
 import MessageDialog from "./MessageDialog";
-import { DialogContent } from "@radix-ui/react-dialog";
+import { useState } from "react";
+import { useKeyManagementContext } from "../custom-hooks";
 export default function ApiKeyNote() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-
+  const [isDialogOpen, setDialogOpen] = useState(true);
+  const { showKeyPopOver, setShowKeyPopOver } = useKeyManagementContext();
+  const handleDialog = (value) => {
+    setDialogOpen(value);
+  };
   return (
-    <>
-      {/* <MessageDialog trigger={false} isDialogOpen={true}>
-        <DialogHeader>
-          <DialogTitle>Note on Using AWS Route 53 API Keys</DialogTitle>
-        </DialogHeader>
-        <div className="p-2">
-          <p className="text-sm">
-            We are using your provided AWS Route 53 API keys services in order
-            to interact with your hosted zones as of now we don't have
-            functionality to generate temporary tokens to manage your services
-            we will be definetly moving towards that but for now if you want us
-            to manage your services please refer to this AWS docs on how to
-            generate role based control to your services and get API Keys. This
-            role based mechanism will make sure that we only have limited access
-            to your services as governed by you
-          </p>
-        </div>
-        <DialogFooter>
-          <a href="" className="text-sm">
-            Start By Uploading your keys
-          </a>
-        </DialogFooter>
-      </MessageDialog> */}
+    <MessageDialog
+      trigger={false}
+      isDialogOpen={isDialogOpen}
+      handleDialog={handleDialog}
+    >
+      <DialogHeader>
+        <DialogTitle>Note on Using AWS Route 53 API Keys</DialogTitle>
+      </DialogHeader>
       <div>
-        {" "}
-        <Dialog
-          open={dialogOpen}
-          onOpenChange={(open) => {
-            setDialogOpen(open);
+        <p className="text-sm leading-relaxed">
+          We currently use your provided AWS Route 53 API keys to interact with
+          your hosted zones. While we’re working on adding support for temporary
+          access tokens to enhance security, we recommend setting up role-based
+          access control through the AWS IAM console in the meantime. This setup
+          will ensure our access remains limited to the permissions you define.
+          For detailed guidance, please refer to the&nbsp;
+          <a
+            href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html"
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{ color: "blue" }}
+          >
+            AWS documentation
+          </a>{" "}
+          on creating role-based access and generating API keys.
+        </p>
+      </div>
+      <DialogFooter>
+        <span
+          className=" underline text-sm cursor-pointer"
+          style={{ color: "blue" }}
+          onClick={() => {
+            handleDialog(false);
+            setShowKeyPopOver(true);
           }}
         >
-          <DialogTrigger asChild>
-            <span className="underline hover:cursor-pointer">click here</span>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Our Privacy Policy</DialogTitle>
-            </DialogHeader>
-            <div className="p-2 text-gray">
-              <p className="text-sm pb-2 leading-relaxed">
-                We are using your provided AWS Route 53 API keys to interact
-                with your hosted zones. Please note:
-              </p>
-              <ul className="list-disc  text-sm space-y-2 leading-relaxed">
-                <li>
-                  Currently, we do not have functionality to generate temporary
-                  tokens to manage your services, but we are planning to
-                  implement this in the future.
-                </li>
-                <li>
-                  For now, if you would like us to manage your services, refer
-                  to the&nbsp;
-                  <a
-                    href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    style={{ color: "blue" }}
-                  >
-                    AWS documentation
-                  </a>{" "}
-                  on how to set up role-based access control and generate API
-                  keys. This role-based mechanism will ensure that we have only
-                  the limited access you grant.
-                </li>
-                <li>
-                  We do not store any cookies on the client side except for your
-                  AWS API keys, which are stored in an encoded form in your
-                  local storage.
-                </li>
-                <li>
-                  We do not store any information in databases. Instead, we
-                  process each request with the API keys you provide on a
-                  per-request basis.
-                </li>
-                <li>
-                  Since the keys are stored locally on your browser, each
-                  request requires the API keys. If they are not provided, the
-                  request will fail.
-                </li>
-                <li>
-                  We do not store or process these keys beyond passing them
-                  directly to AWS servers.
-                </li>
-              </ul>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
-    </>
+          Start By Uploading your keys
+        </span>
+      </DialogFooter>
+    </MessageDialog>
   );
 }

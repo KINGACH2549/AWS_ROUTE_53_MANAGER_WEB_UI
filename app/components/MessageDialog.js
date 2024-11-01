@@ -1,26 +1,18 @@
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogFooter,
-  DialogTitle,
-  DialogClose,
-} from "@/components/ui/dialog";
-import { DialogContent } from "@radix-ui/react-dialog";
-import { useEffect, useState } from "react";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
-export default function MessageDialog({ children, trigger, isDialogOpen }) {
-  // const { trigger, isDialogOpen } = props;
-  const [dialogOpen, setDialogOpen] = useState(false);
-  useEffect(() => {
-    setDialogOpen(isDialogOpen);
-  }, []);
+export default function MessageDialog({
+  children,
+  trigger,
+  isDialogOpen,
+  handleDialog,
+}) {
   return (
     <>
       <Dialog
-        open={dialogOpen}
+        open={isDialogOpen}
         onOpenChange={(open) => {
-          setDialogOpen(open);
+          handleDialog(open);
         }}
       >
         <DialogTrigger asChild>

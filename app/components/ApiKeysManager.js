@@ -14,10 +14,11 @@ import {
   KEY_TYPE_SECRET,
   REMOVE_API_KEYS,
 } from "../Constant";
+import { useKeyManagementContext } from "../custom-hooks";
 
 export function PopoverDemo(props) {
   const { accessKeys, setAccessKeys, secretKeys, setSecretKeys } = props;
-
+  const { showKeyPopOver, setShowKeyPopOver } = useKeyManagementContext();
   const handleApiKeys = (apiKeys, keyType) => {
     switch (keyType) {
       case KEY_TYPE_ACCESS:
@@ -42,7 +43,12 @@ export function PopoverDemo(props) {
     }
   };
   return (
-    <Popover>
+    <Popover
+      open={showKeyPopOver}
+      onOpenChange={(open) => {
+        setShowKeyPopOver(open);
+      }}
+    >
       <PopoverTrigger asChild>
         <Button
           className="bg-gray-900 text-white hover:bg-gray-800 hover:text-white"
