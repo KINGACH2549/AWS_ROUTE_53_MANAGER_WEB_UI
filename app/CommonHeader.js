@@ -8,6 +8,7 @@ import CommonQueue from "./CommonQueue";
 import { Toaster } from "@/components/ui/toaster";
 import Error from "./Error";
 import ErrorNotification from "./ErrorNotification";
+import CopyRightFooter from "./components/CopyRightFooter";
 
 export default function CommonHeader({ children }) {
   const notificationQueue = useRef([]);
@@ -24,6 +25,7 @@ export default function CommonHeader({ children }) {
         {children}
       </Error>
       <Toaster />
+      <CopyRightFooter />
     </CommonQueue>
   );
 }
