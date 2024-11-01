@@ -1,4 +1,3 @@
-import { AiOutlineMail } from "react-icons/ai";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 export default function CopyRightFooter() {
