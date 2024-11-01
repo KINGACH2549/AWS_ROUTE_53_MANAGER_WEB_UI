@@ -100,7 +100,7 @@ export function ScrollAreaDemo({ notificationData, handleNotifications }) {
       ) : (
         <div className="h-96 flex flex-col justify-center gap-4">
           <p className="text-md text-center text-gray-800">
-            You are all Catched Up
+            You are all Caught Up
           </p>
           <div className="flex justify-center">
             <PartyPopper
