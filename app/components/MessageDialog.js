@@ -9,7 +9,7 @@ import {
 import { DialogContent } from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 
-export default function ({ children, trigger, isDialogOpen }) {
+export default function MessageDialog({ children, trigger, isDialogOpen }) {
   // const { trigger, isDialogOpen } = props;
   const [dialogOpen, setDialogOpen] = useState(false);
   useEffect(() => {
